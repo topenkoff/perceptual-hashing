@@ -12,14 +12,12 @@ def image_processing(image):
 
 
 def get_hash(image):
-    bits = ''
+    bits = 0
     average = get_average_grey(image)
-    for byte in image.tobytes():
+    for index, byte in enumerate(image.tobytes(), start=0):
         if byte > average:
-            bits += '1'
-        else:
-            bits += '0'
-    return hex(int(bits, 2))
+            bits |= 1 << index
+    return hex(bits)
 
 
 def main(image_path):
